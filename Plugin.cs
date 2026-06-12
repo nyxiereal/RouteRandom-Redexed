@@ -13,6 +13,7 @@ public class RouteRandomRedexed : BaseUnityPlugin
     internal static Harmony? Harmony { get; set; }
     public static bool constellationsLoaded = false;
     public static bool randomRouteOnlyLoaded = false;
+    public static bool lethalLevelLoaderLoaded = false;
 
     private void Awake() {
         Log = base.Logger;
@@ -51,6 +52,7 @@ public class RouteRandomRedexed : BaseUnityPlugin
     public static ConfigEntry<bool> ConfigHidePlanet;
     public static ConfigEntry<bool> ConfigConstellationSupport;
     public static ConfigEntry<bool> ConfigUseWeights;
+    public static ConfigEntry<bool> ConfigBypassLLLLock;
 
     private void LoadConfigs() {
         ConfigAllowMildWeather = Config.Bind("Allowed Weathers",
@@ -122,6 +124,11 @@ public class RouteRandomRedexed : BaseUnityPlugin
             "Use RandomRouteOnly moon weights",
             true,
             "Whether to use the moon weights configured in RandomRouteOnly's config for random moon selection");
+
+        ConfigBypassLLLLock = Config.Bind("General",
+            "BypassLethalLevelLoaderLock",
+            true,
+            "Bypasses LethalLevelLoader's moon lock when using 'route random' or 'route randomfilterweather' commands. Enable this if you want to route to ALL moons regardless of their lock status.");
     }
 
     #endregion

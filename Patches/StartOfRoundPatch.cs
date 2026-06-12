@@ -1,5 +1,6 @@
 using BepInEx.Bootstrap;
 using HarmonyLib;
+using RouteRandomRedexed.Helpers;
 using TMPro;
 using UnityEngine.Video;
 
@@ -14,6 +15,8 @@ public class StartOfRoundPatch
 		// Check if LethalConstellations is active
 		if(Chainloader.PluginInfos.ContainsKey("com.github.darmuh.LethalConstellations")) RouteRandomRedexed.constellationsLoaded = true;
         if(Chainloader.PluginInfos.ContainsKey("Index154.RandomRouteOnly")) RouteRandomRedexed.randomRouteOnlyLoaded = true;
+        if(Chainloader.PluginInfos.ContainsKey("imabatby.lethallevelloader")) RouteRandomRedexed.lethalLevelLoaderLoaded = true;
+        if(RouteRandomRedexed.lethalLevelLoaderLoaded && RouteRandomRedexed.ConfigBypassLLLLock.Value) LethalLevelLoaderCompat.UnlockAllRoutes();
     }
 
     [HarmonyPostfix]

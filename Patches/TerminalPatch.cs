@@ -83,6 +83,7 @@ public class TerminalPatch
     }
 
     [HarmonyPostfix]
+    [HarmonyAfter("FlipMods.TooManyEmotes", "mrov.WeatherRegistry")]
     [HarmonyPatch(nameof(Terminal.ParsePlayerSentence))]
     public static TerminalNode RouteToRandomPlanet(TerminalNode __result, Terminal __instance) {
         if (__result is null || __instance is null) {
@@ -96,6 +97,10 @@ public class TerminalPatch
         if (!choseRouteRandom && !choseRouteRandomFilterWeather) {
             RouteRandomRedexed.Log.LogDebug($"Didn't choose random or randomfilterweather (chose {__result.name})");
             return __result;
+        }
+
+        if (RouteRandomRedexed.ConfigBypassLLLLock.Value && RouteRandomRedexed.lethalLevelLoaderLoaded) {
+            LethalLevelLoaderCompat.UnlockAllRoutes();
         }
 
         // .Distinct check here as Dine was registered twice for some reason? Didn't bother looking into why :P
