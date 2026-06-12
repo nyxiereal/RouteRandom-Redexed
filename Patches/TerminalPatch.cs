@@ -166,9 +166,11 @@ public class TerminalPatch
             hidePlanetHackNode.buyRerouteToMoon = confirmationNode.buyRerouteToMoon;
             hidePlanetHackNode.itemCost = RouteRandomRedexed.ConfigRemoveCostOfCostlyPlanets.Value ? 0 : confirmationNode.itemCost;
             RouteRandomRedexed.Log.LogInfo("Hidden moon!");
+            __instance.TrySetCurrentNode(chosenNode);
             return hidePlanetHackNode;
         }
 
+        __instance.TrySetCurrentNode(chosenNode);
         return RouteRandomRedexed.ConfigSkipConfirmation.Value ? chosenNode.GetNodeAfterConfirmation() : chosenNode;
     }
 
